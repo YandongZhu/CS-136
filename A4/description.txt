@@ -1,0 +1,160 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: Basic Overflow
+[10 marks correctness]
+In this question you will be making some calculations while avoiding overflow. Recall that overflow cannot be avoided if the final value is too large (or too small) but the overflow of intermediate values can sometimes be avoided if the operations are ordered correctly. You may not use any types other than int and bool (using a type with more bits is defeating the purpose of the question).
+
+Write a module safe-to-add that provides the function bool safe_to_add(int a, int b); That returns true if and only if it is safe to compute a+b without causing overflow or underflow. For example, you can safely add -2 and -2, but you cannot add 2 and INT_MAX without overflow.
+Write a module mean-three that provides the function int mean3(int a, int b, int c); that returns the average of a, b, and c (rounded towards 0, which is the same as "/". e.g. the average of 10, 11, and 11 is 10.6 so the function would return 10). Your function must work even if a, b and c are large (i.e. you must avoid overflow).
+BLACK QUESTION (moderate collaboration allowed)
+Problem 2. 
+[10 Marks correctness; 5 Marks efficiency]
+Write a C module (fib.c and fib.h) that provides the following functions:
+int fib(int n) returns the nth Fibonacci number where 0 ≤ n ≤ 46. f(0) == 0, f(1) == 1, f(2) == 1, f(3) == 2 ... 
+You may not use recursion to solve this problem.
+int next_fib(void) returns the next Fibonacci number after the one most recently returned by fib or next_fib. If there was no previous call to fib or next_fib, or the previous call did not return a value between fib(0) and fib(45), inclusive, return -1. 
+Your implementation of next_fib must not use loops (including inside any helper functions) or recursion.
+Public test sample:
+  assert(next_fib() == -1);
+  assert(fib(0) == 0);
+  assert(next_fib() == 1);
+  assert(next_fib() == 1);
+  assert(next_fib() == 2);
+
+GOLD QUESTION (no collaboration allowed)
+Problem 3. 
+[30 Marks correctness]
+A Fibonacci word is composed by repeatedly concatenating words composed of binary digits. The first two words are defined to be 0 and 01, respectively. Each next word is the concatenation of two previous ones. So, the third word is 010, the fourth 01001 etc: "0, 01, 010, 01001, 01001010, ..."
+
+In this question we will consider sequences created the same way but using different starting words. For example, the first two words 10 and 100 produce "10, 100, 10010, 10010100, 1001010010010...". We will use integers to represent binary words, and will only consider words that begin with 1. For example, 2 represents the word 10 and 6 represents the word 110. 
+
+Your task is to write a function bool fib_word(int s0, int s1, int word) that checks whether word can be generated using the above rules from s0 and s1. Write a C module (fib_word.c) that provides the following function:
+
+    // fib_word(s0,s1,word) returns true if word is part of a sequence where
+    //  s0 and s1 represent the first two elements, and the 
+    //  n-th element is formed by concatenating binary representations
+    //  of elements at (n-1) and (n-2). If word is not a part of 
+    //  that sequence, false is returned. 
+    // require: s0 > 0, s1 > 0, word > 0
+    bool fib_word(int s0, int s1, int word);
+You may not use recursion to solve this problem.
+Public test samples:
+  assert (fib_word(1, 16, 33));
+  assert (!fib_word(1, 16, 49));
+  assert (fib_word(2, 1, 13));
+  assert (fib_word(2, 5, 181));
+  assert (!fib_word(2, 5, 10));
+Problem 4: Reading in Input (Loop Edition)
+We have provided the readnat module for reading natural numbers from user input (same as in A2).
+
+When reading the next Nat, readnat() skips spaces and newlines, so you do not need to worry about newlines.
+
+For this question you can assume our test cases use valid input. Our test inputs do not terminate unexpectedly.
+
+You may not use recursion to solve this problem.
+
+BLACK QUESTIONS (moderate collaboration allowed)
+[10 marks correctness]
+Write a program that reads an arbitrary number of natural numbers and then prints their sum (or -1 if there is no input). Do not worry about overflow.
+Write a program that reads an arbitrary number of natural numbers and then prints the largest value entered (or -1 if there is no input).
+[15 Marks for correctness] 
+Write a program many-sums.c that reads two natural numbers (named "n" and "m"). It then repeats the following "n" times: It reads in a total of "m" natural numbers and then prints their sum, following by a newline. For example if the input was
+        2 3
+        1 2 3
+        4 5 6
+    
+The first 2 3 means the program should read 2 lines, and there are 3 numbers on each lines, so the program prints
+        6
+        15
+    
+where 6 is the sum of 1 2 3, and 15 is the sum of 4 5 6.
+
+This program does not need to handle overflow. If n is 0 the program does not print anything, because there is 0 line to read; otherwise if m is 0 then the program should print 0 for that line.
+
+
+Write a program closest.c that reads a natural number "n". If n is 0 then the program prints 0 and ends. Otherwise, repeat this: it reads in a second natural number "m". If m is zero then the program ends. Otherwise, it reads a further m natural numbers and then prints the value that was closest to n (the value "x" where |n-x| is smallest). If two values are equally close to n then it prints the first one read. The program then reads another value of "m" and continues from there. 
+For example, if the input is
+
+        17
+        1 35
+        3 15 19 22
+        2 18 16
+        0
+    
+It means n is 17. The program reads 1 number (35) on the current line, and prints out the closest number to 17.
+
+Then the program reads 3 numbers (15 19 22) on the next line, and prints out the closest number to 17.
+
+Then the program reads 2 numbers (18 16) on the next line, and prints out the closest number 17. Since 18 and 16 are equally close, it outputs the first number 18.
+
+Then the program reads 0 and exits.
+
+The output is:
+
+        35
+        15
+        18
+    
+Write a program running-sum.c that reads an arbitrary number of natural numbers. After each number is read, the current "running total" (the sum of all numbers entered so far) is printed. If the number entered causes the running total to overflow, then "overflow" should be printed instead, and the running total should be reset to 0. For example if the input is
+        1
+        2
+        3
+        2147483647
+        1
+        2
+        3
+    
+then the program prints
+        1
+        3
+        6
+        overflow
+        1
+        3
+        6
+    
+Problem 5: Stack Frames
+In this question, you will manually determine the contents of the call stack at various points in the execution of a C program
+For this question you will write a plain text file (call-stack.txt) showing a representation of the call stack. Stack frames must be written in the following format:
+
+==============================
+<Function_name>:
+  <parameter1_name>: <parameter1_value>
+  <parameter2_name>: <parameter2_value>
+  ...
+  <local_constant1_name>:<local_constant1_value>
+  ...
+  return addr: <function name> : <line number>
+==============================
+
+Note the use of ='s to delimit the stack frame. An example of how a complete stack should look is as follows (taken exactly from the stack in Module 05: Slide 41):
+
+=========================
+g:
+  y: 8
+  c: 64
+  return address: f:13
+=========================
+f:
+  x: 2
+  b: 5
+  return address: main:17
+=========================
+  main:
+  a: ???
+  return address: OS
+=========================
+This question will be marked entirely by hand, so it's not necessary that the number of equals signs or spaces be exact, but it should be as close as possible to the provided style.
+
+Please clearly separate the answers for each part of this question with a label (such as "Part A"), and a line of asterisks (*) above and below the answer. For example, something like the following:
+************Part A************
+(your answer to part A)
+************Part B************
+...
+
+BLACK QUESTION (moderate collaboration allowed)
+[20 marks correctness (hand marked)]
+Consider the code in mystery.c.
+
+Draw the call stack as it would be when line 14 is reached for the first time. (Do not include printf, draw the stack before printf is called).
+Draw the call stack as it would be when line 20 is reached for the first time. (Do not include printf, draw the stack before printf is called).
+Draw the call stack as it would be when line 20 is reached for the third time. (Do not include printf, draw the stack before printf is called).
