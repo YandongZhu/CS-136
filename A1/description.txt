@@ -1,0 +1,78 @@
+BLACK QUESTIONS
+Problem 1
+[10 Marks correctness] 
+Write a Racket module range-missing.rkt that provides a function range-missing that has three parameters: a list of integers lon and two integer parameters a and b (where a <= b). range-missing produces a list of all integers from a...b (inclusive) that do not appear in the list lon. The list must be in ascending order. lon may be in a random order.
+Public test sample: (range-missing '(1 2 4) 2 5) => '(3 5) 
+
+GOLD QUESTIONS (no collaboration allowed)
+Problem 2
+[15 Marks correctness] 
+Write a Racket module intersect.rkt that provides a function intersect that has two list parameters lst1 and lst2 (lists of type Any) and produces a list that contains all of the elements that appear in both lst1 and lst2. The produced list must not contain any duplicates, and must be in the same order as the elements first appear in lst1. lst1 and lst2 may contain duplicates.
+Public test sample: (intersect '(1 2 3) '(2 3)) => '(2 3) 
+
+GOLD QUESTIONS (no collaboration allowed)
+Problem 3
+[15 Marks correctness] 
+Write a Racket module difference.rkt that provides a function difference that has two list parameters lst1 and lst2 (lists of type Any) and produces a list that contains all of the elements that appear only in lst1 or only in lst2, but not both. The produced list must not contain any duplicates, and must be in the same order as the elements first appear in lst1, followed by the elements as they first appear in lst2. lst1 and lst2 may contain duplicates.
+Public test sample: (difference '(1 2 3) '(2 3)) => '(1) 
+
+BLACK QUESTION
+Problem 4: UWaterloo API (tools)
+[30 marks correctness]
+An Application Programming Interface (API) is an interface to a program (application). The program may even be running on a different computer (e.g., on the internet).
+
+We have designed a module uw-api.rkt that provides a Racket interface for using the uWaterloo API.
+
+TIPS:
+
+These questions may seem daunting, but they are all just dealing with lists, strings and numbers in different ways.
+You may find the following functions handy: number->string, string->number, substring, string-append.
+It is best to just play around providing different values to uw-api in seashell (or the DrRacket interactions window) to see what kind of values it produces.
+Some of the values produced by the API calls will be lists of lists of lists
+A few of the questions will require you to explore the uWaterloo API documentation to see what is available.
+Think carefully about what helper functions will make your life easier.
+The types of the parameter name types are as follows:
+
+subject is a non-empty string that is a UW subject (e.g., "CS" or "MATH").
+catalog is an integer corresponding the course number (e.g., the catalog number for this course is 136).
+term is a 4-digit integer that uses UW's term numbering system (see /terms/list in the api). If you're curious, the first digit is always 1, the next two digits are the year, and the last digit is the starting month of the semester (W = 1, S = 5, F = 9), so Spring 2016 (S16) is 1165.
+section is a 7-character string corresponding to a course section (e.g., "LEC 001" or "TST 201").
+lot is a 1-character string corresponding to a parking lot (e.g., "X").
+Note: You may assume the inputs are valid, and you do not have to handle any errors.
+
+Note: You should not assume the lists from uw-api appear in any particular order. If your function produces a list, the order does not matter.
+
+For this question, the marmoset basic tests ("public" tests) will only test if your function(s) return the correct type.
+
+Note: For our marmoset testing, we will be using a different, "fake" uw-api module that has an identical interface, but produces fake (but consistent) results.
+
+You must write a module uw-tools-black.rkt that requires our uw-api module and provides more "user friendly" functions.
+
+(cur-temp) has no parameters and produces the current temperature at the University of Waterloo (in Celsius).
+                Example:
+                (cur-temp) => -11.5
+        
+(course-desc subject catalog) produces a string with the calendar "description" of the course.
+                Example:
+                (course-desc "CS" 136) => "This course builds..."
+        
+(total-parking-capacity) has no parameters and produces the total parking capacity of the university (for the lots provided by the API).
+                Example:
+                (total-parking-capacity) => 1873
+        
+GOLD QUESTION
+Problem 5: UWaterloo API (continued)
+[30 marks correctness]
+You must write a module uw-tools-gold.rkt that requires our uw-api module and provides more "user friendly" functions.
+
+(parking-availability lot) produces the number of currently available parking spots for the given lot.
+                Example:
+                (parking-availability "X") => 309
+        
+(course-sections term subject catalog) produces a list of strings that correspond to the section names for the course (see /terms/../../../schedule).
+                Example:
+                (course-sections 1161 "CS" 136) => '("LEC 001" "LEC 002" ... "TST 201")
+        
+(course-capacity term subject catalog) produces a list of lists illustrating how "full" a course is. For each "LEC" section, it must produce a list with 3 items: the section, the enrollment_capacity and the enrollment_total (number of students in the class). Your produced list should only contain "LEC" information.
+                Example:
+                (course-capacity 1161 "CS" 136) => '(("LEC 001" 90 77) ... ("LEC 011" 90 60))
