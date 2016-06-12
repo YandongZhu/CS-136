@@ -1,0 +1,114 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: Using printf
+[5 marks correctness]
+You must write a program hello.c that prints the text below exactly.
+
+Use several printf statements to avoid having lines that are greater than 80 characters.
+
+Note the restrictions on printing numbers (you must use %d).
+
+For this question, the marmoset public test expects the identical output as the following text. There will be no additional tests, except to ensure you have not violated the restrictions on printing numbers.
+
+Hello,
+
+This is a test to see if you can use the C printf function in CS 136.
+
+Watch your spacing very carefully.
+                   ~~~~~~~~~~~~~~
+
+You can assume there are no spaces at the end of the lines.
+
+One restriction: you cannot use numbers directly.
+
+So, in order to print the fun number 1337 and 4010, you must use %d.
+
+Also, please define:
+
+const int n = 1337;
+
+const int m = 4010;
+
+And then use m and n (and %d) to print:
+"The sum of 1337 and 4010 is 5347!".
+
+Don't forget to put a newline (\n) at the end of the last line.
+
+BLACK QUESTION (moderate collaboration allowed)
+Problem 2: Translation of Racket Functions
+[20 marks correctness]
+We have provided you with a Racket module named racket-translation.rkt. (aside: this module has very low cohesion).
+
+Your goal is to translate the racket functions into C as directly as possible in an equivalent C module.
+
+We have written the interface file translation.h. You must complete the implementation file translation.c.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 3: Math Operations
+[15 marks correctness]
+Write a C module math_operations.c to implement the following functions.
+
+You may not use the math.h library. 
+You may not use / or * . Only + and - can be used. 
+The function int multiply(const int a, const int b) that returns the value a*b without using *.
+For multiply, you may assume that b >= 0. 
+
+Public test sample:
+assert(multiply(-4, 3) == -12) 
+
+The function int divide(const int a, const int b) to implement integer division (a/b) without using /.
+For divide, you may assume that b does not equal zero (b!=0). 
+Your function should support negative values of a and b.
+
+Public test sample:
+assert(divide(11,5) == 2) 
+assert(divide(11,-5) == -2)
+Problem 4: Reading in Input
+We have provided a module readnat that provides a function (readnat) that reads in a natural number from the input.
+
+We have also provided a sample question q4example that shows how you can use the readnat function inside of a function (read_sum) that uses accumulative recursion to determine the sum of an arbitrary number of natural numbers in the input.
+
+You should carefully review q4example and the main file main.c before attempting this question.
+
+For each of the following questions, you are to write a program that reads in an arbitrary number of natural numbers and then prints a single natural number. Your solution should use accumulative recursion in a manner similar to q4example.
+
+As soon as a non-natural number or invalid input is encountered (readnat produces -1), your program should stop reading in numbers and print the value.
+
+BLACK QUESTIONS (moderate collaboration allowed)
+[15 marks correctness]
+Write a program that reads in an arbitrary number of natural numbers and then prints the largest number encountered (or 0 if there is no input).
+Write a program that reads in an arbitrary number of natural numbers and then prints the number of even numbers encountered.
+Write a program that first reads in a natural number (named "n") followed by an arbitrary number of natural numbers. The program prints the number of numbers encountered that are larger than n. If there are less than two natural numbers in the input, the program prints 0.
+GOLD QUESTIONS (no collaboration allowed)
+[25 marks correctness]
+Write a program that reads in an arbitrary number of natural numbers and then prints the difference between the largest and the smallest natural number encountered (or 0 if there is no input).
+Write a program that first reads in a natural number (named "n") followed by an arbitrary number of natural numbers. The program prints the largest natural number encountered that is divisible by n. 
+In addition, the program prints 0 if:
+n is 0
+or none of the numbers is divisible by n
+or there are less than two input numbers
+Write a program that reads in an arbitrary number of natural numbers and then prints the length of the longest sequence of numbers read in that are in non-decreasing order.
+BLACK QUESTION (moderate collaboration allowed)
+Problem 5: Implement date.c
+[20 marks correctness & testing]
+Write the C implementation date.c for the interface date.h
+
+Public test samples: 
+const struct date date1 = {12,33,2013};
+const struct date date2 = {12,23,2013};
+const struct date date3 = {2,10,2010};
+const struct date date4 = {12,23,2013};
+const struct date date5 = {2,29,2100};
+
+assert(is_valid(date1) == false);
+assert(d_eq(date4 ,date2) == true); 
+assert(is_valid(date5) == false);
+assert(greaterthan(date2,date3) == true);
+Notes:
+
+You may assume that the dates will be after January 1, 1900.
+
+3 criteria must be taken into account to identify leap years (years where February has 29 days):
+
+The year is evenly divisible by 4;
+If the year can be evenly divided by 100, it is NOT a leap year, unless;
+The year is also evenly divisible by 400. Then it is a leap year.
