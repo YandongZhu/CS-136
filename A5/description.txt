@@ -1,0 +1,136 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: Input
+[10 marks correctness]
+Since you now have the necessary knowledge to do so, we want you to write your own version of the function int readnat(), which has so far been provided to you in some of the previous assignments. As a reminder: readnat returns -1 whenever the user enters EOF; otherwise it returns the non-negative integer entered by the user. We will add another possible return value: If the user entered a negative number, return -2. You do not need to account for user-input that is not EOF or can not be parsed as an integer, i.e. you do not need to catch if an ill-mannered user tries to input a random character that is not a number. Put this function in a module called user_io. You should create a header file and an implementation on Seashell.
+Furthermore, write a function float readnonnegfloat(), which behaves like readnat but reads and returns a non-negative number of type float. (i.e., readnonnegfloat returns -1 when an EOF is encountered, and -2 when the number the user entered was not a non-negative floating point number). Add this function to the module user_io
+BLACK QUESTION (moderate collaboration is allowed)
+Problem 2: Basic pointer manipulation
+[13 marks correctness] 
+Create a module basic_pointer that provides the following functions.
+int *down_value(int *x, int *y).
+
+The function changes the larger value (i.e., *x or *y) to be the same as the smaller value and returns the address of the value that was mutated (i.e., previously larger). If the values are the same, the function should make no change and return NULL.
+
+struct posn *up_value(struct posn *p1, struct posn *p2 ) 
+(Use struct posn {int x; int y;}; )
+The function takes as an argument two pointers to struct posn.
+It compares the sum of the fields of each structure, and changes the fields of the smaller-sum posn to be the same as the higher-sum. It returns the address of the mutated structure. If the sum of the fields is the same for the two posn structures, it returns NULL.
+
+int read_two(int *n1, int *n2).
+In this function, you will use pointers to "return" multiple values. 
+The function tries to read in two natural numbers and stores the first number in *n1 and the second in *n2. If the first read fails it does not attempt to read in the second number and the function leaves the values in *n1 and *n2 unchanged. If only the second read fails, then the value in *n2 is unchanged. In other words, values are only mutated if the corresponding read succeeds.
+
+The return value must indicate how many numbers were successfully read (0, 1 or 2).
+
+Use your implementation of readnat() for reading natural numbers from user input.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 2 Continue
+[7 marks correctness]
+bool sum_and_range(int n, int *sum, int *smallest, int *largest)
+The function attempts to read exactly n natural numbers and:
+
+mutates *sum to store the sum of all n numbers, or 0 if n is 0.
+mutates *smallest and *largest to stores the smallest/largest of all numbers, or 0 if n is 0.
+If a failure occurs before n numbers are read in, the function stops reading in numbers and mutates *sum, *smallest and *largest based on the numbers read in before the failure.
+
+If all n numbers are successfully read in, the function returns false (0) to indicate success, otherwise it returns true (1).
+
+BLACK QUESTION (moderate collaboration is allowed)
+Problem 3: Basic calculator
+[8 marks correctness] 
+Create a module calculator_functions that provides the functions:
+Write functions
+int plus(int *a, int *b) that gets as input two pointers to integers and returns the sum of the integers.
+int minus(int *a, int *b) that gets as input two pointers to integers and returns the difference between the first and the second integers.
+int times(int *a, int *b) that gets as input two pointers to integers and returns the product of the integers.
+int divide(int *a, int *b) that gets as input two pointers to integers and returns the first integer divided by the second. You can assume *b is never 0.
+Test examples: 
+  int n = 5; 
+  int m = 12; 
+  assert(plus(&n, &m) == 17);
+  assert(times(&n, &m) == 60); 
+Write a function int math(int (*f)(int *, int *), int n, int m) which gets as input a function f and two integers, and return the result of applying f to the integers.
+Test examples:
+  assert(math(divide,8,2) == 4);
+GOLD QUESTION (moderate collaboration is allowed)
+Problem 3 Continue
+[12 marks correctness]
+Write a program in calculator.c 
+The program should use scanf to read 3 elements from the input: an integer, a char and another integer. The valid characters are '+', '-', '*', and '/' . 
+It should use the program math (from (b) above) to calculate the answer, and print out the result.
+As long as no invalid input was read, the program should display a message:
+
+Please enter your Math problem: 
+Example:
+Please enter your Math problem: 
+7 * 8
+7 * 8 = 56
+Please enter your Math problem: 
+When an invalid input (or EOF) is encountered, the program should print the message:
+Invalid Input. Exiting.
+And exit.
+Problem 4: Stack Frames
+In assignment 4 we specified a format for representing stack frames in a text file. This question uses the same representation, except for one addition.
+
+We introduce new notation to represent the contents of pointer variables. Since memory addresses are only determined once a program begins executing, we will use labels to represent addresses. It is only necessary to add a label to a variable if its address is stored in a pointer variable. In a stack frame, the value of a pointer variable is either NULL or a label. A label has the format "addr_NUM" e.g. addr_1.
+
+As an example, consider the following code: 
+int main(void) {
+  int x = 10;
+  int *px = &x;
+  int **ppx = &px;
+  //point A
+}
+The following is the representation of the stack frame for the main function at point A: 
+=========================
+main:
+  x: 10 [addr_1]
+  px: addr_1 [addr_2]
+  ppx: addr_2
+  return address: OS
+=========================
+Looking at this stack frame, one can infer that the variable px contains the address addr_1 which is labelled to be the address of variable x.
+
+(Note that it is unnecessary to label ppx because there are no pointers pointing at it.)
+
+GOLD QUESTION (no collaboration allowed)
+[10 marks correctness (hand marked)]
+In this question, you will manually determine the contents of the call stack at three different points (Point A, Point B and Point C) in the execution of the following C program. You will submit a plain text file using the representation discussed above. Please clearly separate the answers for each part of this question with a label (such as "Point A"), and a line of asterisks (*) above and below the answer. For example, something like the following:
+************Point A************
+(your answer to what the stack looks like at point A)
+************Point B************
+...
+
+Note:Write your answer in the file stack-frame.txt
+
+Mountain View
+
+Problem 5: Mutable Sequence ADT in C
+Recall from Section 02 that a Sequence is a Collection ADT that can store an arbitrary number of items.
+
+We are not yet at the point where we can write our own complete ADTs in C. However, we can now use an ADT as a client.
+
+We have provided an implementation of a Sequence ADT that can store int values. The interface for the ADT is provided in sequence.h and provides all the standard functions one would expect from a Sequence ADT.
+
+We have provided the file test.c that provides of an example of how a Sequence can be used.
+
+You are required to write a module seq-tools that provides functions for working with sequences.
+
+IMPORTANT! A description each function you must provide can be found in the provided seq-tools.h interface. Only the function names are listed below.
+
+BLACK QUESTION (moderate collaboration is allowed)
+[5 marks correctness]
+void Sequence_add_one(struct Sequence *seq)
+struct Sequence *Sequence_build(int n)
+void Sequence_map(int (*fp)(int), struct Sequence *seq)
+GOLD QUESTION (no collaboration allowed)
+[25 marks correctness]
+bool Sequence_equal(const struct Sequence *seq1, const struct Sequence *seq2)
+void avg_and_variance(const struct Sequence *seq, int *avg, int *var)
+struct Sequence *Sequence_fib(int n)
+void Sequence_filter(bool (*fp)(int), struct Sequence *seq)
+int Sequence_foldl(int (*fp)(int, int), int base, const struct Sequence *seq)
+GOLD QUESTION (no collaboration allowed)
+BONUS [5 marks]
+void Sequence_reverse(struct Sequence *seq)
