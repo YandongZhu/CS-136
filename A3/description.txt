@@ -1,0 +1,125 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: Mutable Stack ADT in Racket
+[10 marks correctness]
+In this question you must complete the implementation of a Mutable Stack ADT in Racket. Review slide 33 of section 04.
+
+The stack from the course notes (given in stack.rkt) follows the functional programming paradigm. You can find the stack.rkt on Seashell under Tut1.
+
+For example, the stack-push operation produces a new stack with the item pushed on to the top of the stack.
+
+A stack implemented in the imperative programming paradigm behaves slightly differently.
+
+For example, the mstack-push! operation does not produce a value (it produces Void). Its purpose is to have a side effect (modify the queue by pushing the item on the top of the stack).
+
+The mstack-pop! operation could similarly produce nothing, but it is more common (and more useful) to produce the value of the item being popped from the stack, so your implementation must do so.
+
+We have provided a partially complete implementation in the file mstack.rkt. You must complete the mstack-push! and mstack-pop! operations.
+
+Problem 2: Side Effects & Number Series in C
+In this question you are to write a module that provides function(s) that print a sequence of numbers.
+
+The sequence of numbers must be printed exactly, with a comma (,) and a space after each number, except for the last number in the sequence, which must be followed by a period (.) and a newline (\n).
+
+You must use recursion to solve this problem. You can not use any global variables to solve this problem.
+
+BLACK QUESTION (moderate collaboration allowed)
+[10 marks correctness]
+Write a C function:
+void divisors(const int n)
+that prints out all the divisors of n in increasing order. You may assume n is positive.
+For example, divisors(12) will print: 1, 2, 3, 4, 6, 12.
+
+Use a helper function if needed.
+GOLD QUESTION (no collaboration allowed)
+[10 marks correctness]
+Write a function:
+void fibonacci(int n)
+that prints out the first n Fibonacci numbers. You may assume n is positive.
+F(1) = 0, F(2) = 1, F(n) = F(n-1) + F(n-2)
+For example, fibonacci(8) will print: 0, 1, 1, 2, 3, 5, 8, 13.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 3: Calculating a Square Root
+[10 marks correctness]
+You must complete the C module named sqrt, which provides the function:
+double find_sqrt(double n, double tolerance)
+
+In the module we have implemented the function within_tolerance, which you may find useful.
+
+Your implementation of find_sqrt should implement Newton's Iteration algorithm to compute the square root of n, using accumulative recursion.
+
+Starting with an initial guess of x0 = 1, each subsequent guess xk+1 is calculated as:
+xk+1 = (xk + n/xk)/2
+
+The value of the guess (x) is considered to have converged when the absolute difference between x2 and n is less than or equal to tolerance.
+
+We have provided you with a simple C testing client (tests.c).
+
+Problem 4: Rational Structure
+A rational structure represents a rational number with a numerator (num) and a denominator (den). 
+For example, num = 1, den = 3 corresponds to a third (1/3).
+For a valid rational, den can never be 0.
+
+You must use the following C structure:
+
+  struct rational {
+    int num;
+    int den;
+  }; 
+The interface file rational.h gives some more information. 
+The implementation file rational.c already includes an implementation for the function: 
+struct rational R(int n, int d); 
+which returns a valid rational structure.
+
+NOTE: for all functions below, the return rational must be *simplified*, even if the arguments a function gets may not be simplified. 
+Rules for simplifying rationals:
+all integers (including zero) must have a den of 1
+all rationals will use the lowest possible den, so (2/4) will never be returned: instead, (1/2) would be returned
+the den cannot be negative. (-1/-2) or (1/-2) are not simplified
+BLACK QUESTION (moderate collaboration is allowed)
+[25 marks correctness]
+bool r_equal(struct rational a, struct rational b); 
+r_equal(a,b) determines if rationals a and b are equal. 
+Returns true if a and b are the same number, false otherwise.
+struct rational simplify(int n, int d); 
+simplify(n,d) returns the simplified rational, according to the rules above. 
+struct rational r_mult(struct rational a, struct rational b); 
+r_mult(a,b) returns the rational a*b. 
+struct rational r_div(struct rational a, struct rational b); 
+r_div(a,b) returns the rational a/b assuming b is non-zero. 
+struct rational r_add(struct rational a, struct rational b); 
+r_add(a,b) returns the rational a+b.
+struct rational r_sub(struct rational a, struct rational b); 
+r_sub(a,b) returns the rational a-b.
+Public test samples:
+
+ assert(r_equal(r_add(R(1,5),R(1,7)), R(12,35))); // 1/5 + 1/7 = 12/35
+ assert(r_equal(r_mult(R(2,3),R(1,4)), R(1,6)));  // 2/3 * 1/4 = 1/6
+GOLD QUESTIONS (no collaboration is allowed)
+Problem 5: Mutation in C
+[25 marks correctness]
+In this question you are to write a bank module that provides functions for working with a bank account.
+
+For this problem, you may use global mutable variables. This is not a very good approach in the "real world". However, for an introduction to mutation in C, it will suffice.
+
+The bank account has the following characteristics:
+
+The current balance is stored as an integer in a global variable (balance).
+The balance corresponds to the number of cents in the account, not the number of dollars
+The bank account has a maximum daily withdrawal limit of $1000. If a withdrawal is attempted that would exceed the daily limit, the withdrawal will not occur (and a message will be displayed). For example, you can withdraw $400 twice in one day, but not for a third time.
+At the beginning of each day, if the bank balance is non-negative, the withdrawal limit is reset back to its maximum value. However, if the balance is negative, the withdrawal limit is set to zero and a $5 penalty is removed from the bank balance (and a message will be displayed).
+Note: If you choose not to do the bonus question, just submit your code without changing the provided "request_limit_increase" function.
+
+GOLD QUESTIONS (no collaboration is allowed)
+Problem 5 Continue: BONUS
+[5 marks correctness]
+Complete the request_limit_increase function in your bank module.
+
+This function will permanently increase the maximum withdrawal limit of the bank account by $100 if all the following conditions have been met:
+
+The current bank balance is at least $1000.
+No withdrawals have been made this day.
+The bank balance has been at least $500 at the start of the previous 5 consecutive days (including this day).
+There has not been a successful limit increase in the previous 10 consecutive days (including this day).
+The bank balance has never been less than -$1000
+Note: you do not have to submit the bonus question separately. Your solution for Problem 5 will automatically be tested for the bonus.
