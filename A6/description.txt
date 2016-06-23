@@ -1,0 +1,95 @@
+BLACK QUESTION (moderate collaboration allowed)
+[10 marks correctness]
+Write a function int dot_product(const int a[], const int b[], int s), which is passed two arrays a and b of positive length s and returns their dot-product, i.e.
+a[0]*b[0] + a[1]*b[1] + ... + a[s-1]*b[s-1].
+Write a function bool is_orthogonal(const int a[], const int b[], int s), which is passed two arrays a and b of positive length s and returns whether a and b are orthogonal, (i.e. whether their dot-product is equal to zero or not).
+GOLD QUESTION (no collaboration allowed)
+[10 marks correctness]
+Write a function void add_to_vector(const int a[], const int b[], int c[], int s), which is passed three arrays a,b and c of positive length s, adds a and b component-wise and stores the result in c, i.e. after the call to add_to_vector, the vector c contains the values
+[a0 + b0,...,as-1 + bs-1]
+Write a function bool is_multiple(const int a[], const int b[], int s) which is passed two arrays a and b of positive length s and returns true if either a is a multiple of b or b is a multiple of a, and otherwise false. i.e., it returns true if there exist an integer i such that either
+[a0,...,as-1] = [i*b0,...,i*bs-1]
+or
+[b0,...,bs-1] = [i*a0,...,i*as-1]
+BLACK QUESTION (moderate collaboration allowed)
+Problem 2: String I/O
+[15 marks correctness]
+Write a C program lexi.c that reads in strings seperated by whitespaces from I/O until it cannot successfully read in a string.
+
+You must use scanf("%s", ...) You can assume that each string will be at most 99 characters long (not including the null terminator). If no strings are successfully read, it prints out a message "NO STRINGS\n".
+
+If at least one string was successfully read, it then prints out the lexicographically smallest string and the lexicographically largest string, separated by a space and followed by a newline. You will write your program in a main function in lexi.c. You may use helper functions.
+
+You can compare strings lexicographically using strcmp in string.h
+
+For example, the input:
+monkey
+alligator
+zebra
+sloth
+would print out:
+alligator zebra
+Problem 3: Implementation of Sequence ADT
+Recall from Assignment 05 we used a Sequence ADT in order to store an arbitrary number of integer items.
+
+We are not at the point yet where students can write the complete implementation of the Sequence ADT taking into account memory. However, for this assignment we use a simplified Sequence ADT and testing client that will facilitate the implementation of your own Sequence ADT.
+
+We have provided an Interface for the Sequence ADT which stores int values in sequence.h. Implement these functions in sequence.c. You do not need to repeat the documentation, however you must make reference to the documentation in the implementation. You may add helper functions as necessary.
+
+There is a simple testing client for your code in test-seq.c.
+
+BLACK QUESTION (moderate collaboration is allowed)
+[10 marks correctness]
+void Sequence_init(struct Sequence *seq)
+int Sequence_length(const struct Sequence *seq)
+void Sequence_clear(struct Sequence *seq)
+GOLD QUESTION (no collaboration allowed)
+[20 marks correctness]
+void Sequence_insert_at(struct Sequence *seq, int pos, int val)
+int Sequence_item_at(const struct Sequence *seq, int pos)
+int Sequence_remove_at(struct Sequence *seq, int pos)
+void Sequence_print(const struct Sequence *seq)
+Problem 4: Sudoku
+In this problem you will implement a function to check if a Sudoku board is valid or invalid. Sudoku is a popular number placing puzzle game. The aim is to fill a 9X9 grid of numbers without violating the following constraints:
+
+Each cell in the 9X9 grid can have a digit between 1 and 9
+Each row contains each digit only once
+Each column contains each digit only once
+Each 3X3 box with upper-left corner at locations (0,0), (0,3), (0,6), (3,0), (3,3), (3,6), (6,0), (6,3) and (6,6) contains each digit only once.
+A Sudoku board can be partially or completely filled with digits. A board is considered to be valid if it conforms to the above rules. We can represent a Sudoku board by using an array of 81 characters, where the first 9 characters represent the first row, the next 9 characters represent the second row and so on. 
+Your function should be able to handle empty cells in the board. We will use the character '.' to represent an empty cell. 
+You should submit a module sudoku (interface as well as implementation files), implementing the functions below. 
+You may use helper functions.
+BLACK QUESTION (moderate collaboration is allowed)
+[10 marks correctness]
+void print_board(const char *board); 
+This function will take an 81 character sudoku board, and print it out. 
+Every line should start with a "wall" ('|'). There should be one space (' ') between every two characters. Another "wall" ('|') should appear after every 3 characters from the board. The first line should be a line of underscores ('_'). An underscore line should appear after every 3 board lines. 
+Example 
+char b1[82] = "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
+print_board(b1); 
+will print out: 
+
+_________________________ 
+| 5 3 . | . 7 . | . . . | 
+| 6 . . | 1 9 5 | . . . | 
+| . 9 8 | . . . | . 6 . | 
+_________________________ 
+| 8 . . | . 6 . | . . 3 | 
+| 4 . . | 8 . 3 | . . 1 | 
+| 7 . . | . 2 . | . . 6 | 
+_________________________ 
+| . 6 . | . . . | 2 8 . | 
+| . . . | 4 1 9 | . . 5 | 
+| . . . | . 8 . | . 7 9 | 
+_________________________ 
+GOLD QUESTION (no collaboration allowed)
+[15 marks correctness]
+bool is_valid(const char *board); 
+This function will take an 81 character sudoku board, and will return true if the board is valid, i.e., conforms to the above rules.
+Public test samples:
+
+char b1[82] = "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
+char b2[82] = "538.7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
+assert(is_valid(b1) == true);
+assert(is_valid(b2) == false);
