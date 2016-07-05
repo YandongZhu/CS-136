@@ -1,0 +1,126 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: A String Module
+[30 marks correctness]
+Write a C module str-funct.c that provides the following functions. Further documentation can be found on each of these functions in str-funct.h.
+
+A function void letter_freq_count(const char *s, int count[]), where count is an array of length 26. You will update count[i] to be the frequency count of character i in the string s.
+Therefore, the letter (a,A) is at count[0] where the value at count[0] will correspond to the number of occurrences of 'a' or 'A' in string s. You do not need to consider any characters outside of the alphabet.
+
+For example:
+
+    letter_freq_count("aAbc", count);
+    count => [2, 1, 1, 0, 0, 0, 0 ... ]
+A function bool anagram(const char *s1, const char *s2) determines if s1 and s2 are anagrams.
+
+Definition: Any word or phrase that reproduces the letters of the word in another order is an anagram. This function ignores any numbers, punctuation or whitespace (any non-alphabetic characters).
+
+Note: you may not modify the strings passed in as arguments. Instead, you must use letter_freq_count.
+
+For example:
+
+   assert(anagram("Comedian", "Demoniac"));
+A collection of strings in C can be represented as an array of char *. Write a function int ccount(const char *strings[], int len, char ch), which takes an array of strings, its length, len, and a character ch, and returns the number of times the character ch appears in all of the strings in the array. The character ch may appear as upper-case or lower-case to be counted as a match.
+You may assume that len > 0, ch > 0, strings!= NULL and that all of the pointers in the array are !=NULL.
+
+For example:
+
+   char s1[] = "abcd";
+   char s2[] = "abc";
+   
+   char *arr[] = {s1, s2};
+   
+   assert(ccount(arr, 2, 'a') == 2);
+   assert(ccount(arr, 2, 'd') == 1);
+There is a simple testing client for your code in test-str.c.
+
+BLACK QUESTION (moderate collaboration allowed)
+Problem 2: Balanced strings
+[10 marks correctness]
+Write the implementation for the C module balanced (balanced.c) that provides the following function:
+
+// is_balanced(str) determines if str is balanced. str is balanced if each opening
+//       parenthesis has a corresponding parenthesis and the matched pairs are well
+//       nested. Other chars in str are ignored.
+// requires:  str is not NULL
+bool is_balanced(char str[]);
+For example, "()" and "((hello))" are balanced, while ")(", and "((hello)" are not.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 3: Runtime Analysis
+[20 marks correctness (hand marking)]
+In a file runtimes.txt place your answers to the following questions.
+
+Place the following in order from smallest to largest:
+O(n^3), O(1), O(2^n), O(4^n), O(logn), O(nlogn), O(n)
+What is the runtime of the following code? Show your work (justify your answer).
+void translate(char *str) {
+  for (int i = 0; str[i] != '\0'; ++i) {
+    if (str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u') {
+      str[i] = 'a';
+    }
+  }
+}
+What is the runtime of the following code? Show your work (justify your answer).
+int count(char *str, int start, int end, char c) {
+  int length = end - start + 1;
+  int mid = start + (length - 1) / 2;
+  int this = (str[mid] == c);
+
+  if (length == 1) {
+    return this;
+  }
+  
+  return this + count(str, start, mid - 1, c) + count(str, mid + 1, end, c);
+}
+What is the runtime of the following code? Show your work (justify your answer).
+void magic(char *str1, char *str2) {
+  for (int i = 0; str1[i] != '\0'; ++i) {
+    int length = strlen(str2);
+    for (int j = 0; j < length; ++j) {
+      if (str1[i] == str2[j]) {
+        str2[j] = '*';
+      }
+    }
+    printf("%s\n", str2);
+  }
+}
+What is the runtime of the following code? Show your work (justify your answer).
+void magic(int n) {
+  for (int i = 1; i < n; i *= 4) {
+    for (int j = 0; j < n; ++j) {
+      printf("*");
+    }
+  }
+}
+BLACK QUESTION (moderate collaboration allowed)
+Problem 4
+[10 marks correctness]
+bool is_palindrome(const char *str) determines if str is a palindrome. 
+A palindrome is any string which reads the same backward or forward (e.g. strcmp(str, reverse(str)) == 0).
+Example palindromes: "tacocat", "noon", "madam", "DooD"
+Words that are not palindromes: "dooD", "moon", "MOoM"
+The runtime of is_palindrome must be O(n). You may use strlen, but do not reverse the string.
+Note: case, whitespace, punctuation, etc. must match exactly, so as the above examples illustrate, "DooD" is a palindrome but "dooD" is not.
+GOLD QUESTION (no collaboration allowed)
+[20 marks correctness]
+void pig_latin(const char *input, char *output) translates the word stored in input into simplified Pig Latin and stores the result in output.
+
+To translate a word into Pig Latin:
+Given a word w[0]w[1]w[2]...w[n], the Pig Latin word is: w[1]w[2]...w[n]w[0]ay.
+The first character of the word is moved to the end of the word and then "ay" is added at the end.
+
+Examples:
+computer becomes omputercay 
+science becomes ciencesay 
+is becomes siay 
+fun becomes unfay 
+Note: strlen(output) == strlen(input) + 2.
+Valid input words contain only lower case letters.
+You may assume that all input is valid and the length of input is at least one.
+The runtime of pig_latin must be O(n).
+
+char mostfreq(const char *str) returns the character that occurs the most frequently in str. If there is a tie between multiple characters, then the tie is broken by the one that apears first in str. If the length of str is zero, then zero is returned. The characters in the string will all be in the range listed on slide 19 of Module 05 (32...126 inclusive).
+Examples:
+"abcbcc" returns c 
+"abba" returns a 
+For this question, in your implementation file, document the efficiency (run time) of your mostfreq function and briefly justify your answer.
