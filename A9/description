@@ -1,0 +1,82 @@
+Question 1: Implementing the Sequence ADT using Linked Lists
+Recall from Section 02 and Assignments 5 and 6 that a Sequence is a Collection ADT that can store an arbitrary number of items. The interface for the ADT is provided in sequence.h and declares all the standard functions one would expect from a Sequence ADT. In Assignment 5, we provided you with an implementation of this interface. In Assignment 6, you implemented a simplified version of the Sequence ADT. In this assignment, you will write your own implementation for the Sequence ADT. Typically, the developer of an ADT has full control over what internal data structure they choose to use. However, you must use a linked list data structure to implement the Sequence ADT for this question.
+
+IMPORTANT: A description for each function can be found in the provided sequence.h interface. Only the function names are listed below.
+
+The file seq_test.c provides a testing harness that you can use to test the functionality of your implementation. Carefully read the documentation in this file and the sample .in and .expect files. The sample files are for illustrative purposes and do not thoroughly test the functions asked to be implemented.
+
+BLACK QUESTION (moderate collaboration allowed)
+[15 marks correctness]
+struct Sequence *Sequence_create(void);
+
+void Sequence_print(const struct Sequence *seq);
+
+int Sequence_length(const struct Sequence *seq);
+
+int Sequence_item_at(const struct Sequence *seq, int pos);
+
+GOLD QUESTION (no collaboration allowed)
+[15 marks correctness]
+void Sequence_destroy(struct Sequence *seq);
+
+void Sequence_insert_at(struct Sequence *seq, int pos, int val);
+
+int Sequence_remove_at(struct Sequence *seq, int pos);
+
+Question 2: Priority Queues
+A queue is an Abstract Data Type where new items are always added to the back, and items are always removed from the front (FIFO, first in, first out).
+
+A priority queue is another type of queue where removal of items behaves similarly to queues (from the front). However, a new item is added at a position based on the item's priority (an item might get added in the front, somewhere in the middle or at the back).
+
+The file pq.h contains the interface for a priority queue Abstract Data Type.
+
+The file pq_test.c provides a test harness that you can use to test your implementation. Look through the documentation in this file to see the input format required to create your own .in and .expect files. Some sample tests have been provided but they are not exhaustive.
+
+Note: You must use a linked list data structure to implement the priority queue ADT. This will be checked during handmarking.
+
+BLACK QUESTION (moderate collaboration is allowed)
+[10 marks correctness]
+Implement the pq_create, pq_remove, pq_destroy, pq_is_empty, pq_front_item and pq_front_priority functions in pq.c.
+Implement the int pq_length(const struct pq *pqueue); function in pq.c. 
+Note: the function requires an O(1) implementation (will be hand-marked).
+
+GOLD QUESTION (no collaboration allowed)
+[20 marks correctness]
+Implement the function 
+void pq_add(struct pq *pqueue, int item, int priority); in pq.c.
+
+Implement the function void pq_print(const struct pq *pqueue); in pq.c. The function prints a single line for each unique priority by first printing the priority (in square brackets) followed by a space separated list of items with that priority and ending with a newline.
+For example: consider the following queue (with priorities in parentheses):
+
+23(3) 35(3) 3(5) 46(10) 46(10) 47(10)
+
+The output produced by print_queue for this queue will be:
+
+[3] 23 35
+[5] 3
+[10] 46 46 47
+The interface file pq_util.h declares additional functions that operate on the Priority Queue ADT.
+Important implementation note 1: Remember that the priority queue is an ADT. The following functions must be implemented using just the functions provided by the priority queue interface (functions in pq.h). This also means that if your implementation for the functions in pq.h is incorrect, the following functions (even if implemented correctly) will give incorrect results.
+
+Important implementation note 2: Carefully read the descriptions of the following functions. In particular, note that these functions cause the input queue (pqueue) to be destroyed (all dynamic memory allocated for pqueue must be freed within these functions).
+
+Implement the function void to_array(struct pq *pqueue, int **arr_ptr, int *len); in pq_util.c. The function converts a priority queue into a dynamically allocated array containing just the items (discarding the priorities). The elements of the array are ordered in the same order as in the queue.
+
+Implement the function struct pq **k_way_split(struct pq *pqueue, const int k); in pq_util.c.
+
+Motivation: In the world of cloud computing, resources (servers) are typically added on demand; if the load on existing servers increases beyond a certain threshold more servers are automatically added. In such a distributed environment, jobs pending on a server are usually queued based on priority. If the load on the server increases, k new servers might be added and the pending jobs are then distributed over these servers to balance the load.
+
+GOLD QUESTION (no collaboration allowed)
+Question 3: Implement Merge Sort using linked lists
+[30 marks correctness]
+We have provided you the interface merge.h. In this question, you will implement merge sort on linked lists of ints by implementing the following functions. Please refer to the documentation within the interface file.
+
+The file merge_test.c implements a main function that you can use with .in and .expect files to test your implementation. We have provided you sample .in and .expect files for illustrative purposes. You should test the functions you implement by creating additional tests.
+
+Implement the function void merge(struct llist *dest, struct llist *src1, struct llist *src2);.
+
+Implementation note: the function is not allowed to allocate any new lists or nodes. However, you may create local (stack allocated) pointers to llist(s) or llnode(s).
+
+Implement the function void merge_sort(struct llist *lst);
+
+Implementation note: the function is not allowed to allocate any nodes. However, you may allocate empty llist(s) (on the heap) or create empty llist(s) locally on the stack. You may also create local (stack allocated) pointers to llist(s) or llnode(s).
