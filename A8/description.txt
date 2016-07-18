@@ -1,0 +1,63 @@
+BLACK QUESTION (moderate collaboration allowed)
+Problem 1: Dynamically Allocating Arrays
+[10 marks correctness]
+In dyn-arrays.c write the following functions. (A corresponding .h file has been provided on Seashell). The only string functions you are allowed to use are strlen and strcmp. No other string functions are allowed unless you write them yourself.
+
+char *my_strappend(const char *s1,const char* s2) which returns a new string that contains s1 followed by s2.
+char *hex_to_bin(const char *h) which is passed h, a string containing a hexadecimal number (it contains only digits and the upper case letters 'A' through 'F'). 
+The function returns a new dynamically allocated string that is the binary representation of h. You must have exactly 4 binary digits for each hexadecimal digit (this is what makes hex to binary conversions so easy). This will result in leading zeroes, and this is OK! 
+You may want to consult Section 14, slide 44 for a conversion table from Hex to Binary. 
+Example
+hex_to_bin("01E") should return a string equal to "000000011110"
+
+You do not have to assert the requirement that the string h contains only hexadecimal digits. You may assume that this is always true.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 2: Dynamic Array Resizing
+[15 marks correctness]
+In array-resize.c write the following function. char *replace(char *s, const char *find, const char *rep) that searches the string s for all occurrences of the substring find and replaces them with the string rep. You must make sure not to match any portion of the string that has already been replaced. That is, replace("hello","o","oo") returns the string "helloo" (not a string with an infinite number of "o"s). Replacement must be done left to right, so replace("hellooo", "oo", "OO") returns "hellOOo" not "helloOO". 
+
+In addition, you may assume that the string s has been allocated on the heap. For example: 
+
+char* s = malloc(sizeof(char) * 6);
+strcpy(s, "hello");
+s = replace(s, "o", "ooo");
+// s is now "hellooo"
+s = replace(s, "oo", "OO");
+// s is now "hellOOo
+find must contain at least one character, but s and rep can be the empty string.
+
+replace returns a pointer to the updated string s. The original address s is freed by either free() or realloc(). The caller must assume that the original pointer will be invalid.
+
+Problem 3: The Queue ADT
+A queue is an Abstract Data Type where new items are always added to the back, and items are always removed from the front (FIFO, first in, first out).
+In this question you are required to write a special implementation of a Queue ADT, using the Stack ADT that we've seen in class.
+
+BLACK QUESTION (moderate collaboration allowed)
+[20 marks correctness]
+In squeue.c implement the Queue ADT (see squeue.h for the interface). 
+Your code is expected to use the Stack ADT interface (given in stack.h).
+
+Note that struct squeue is already defined for you. You must use this struct and you are not allowed to change it.
+
+Functions squeue_create, squeue_add, squeue_destroy, squeue_is_empty, squeue_front should all run in time O(1). 
+Function squeue_remove_front may take O(n) time to complete, where n is the number of elements in the queue.
+
+You can assume that the squeue passed into squeue_front and squeue_remove_front will be non-empty.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 4: The Set ADT
+[20 marks correctness]
+Implement the Set ADT. See set.h for the interface. We have provided a very simple testing program (it does not test most of the ADT operations).
+
+Pro Tip: To achieve the running times specified in the interface, you will want to use a sorted array to store the elements of a set. If you do this, union and intersect can be done in O(n) time.
+
+GOLD QUESTION (no collaboration allowed)
+Problem 5: Sorting
+[25 marks correctness]
+(20 marks) Write the program line-sort.c that reads an arbitrary number of lines of input, and after reaching EOF displays those lines in lexicographic order. For this question, a line is defined as being an arbitrary number of characters (zero if the line is blank) followed by a newline. All characters on a line must be used for comparing each line, including leading whitespace (do not ignore any whitespace!). E.g. the line " z" precedes the line "a" because ' ' < 'a'.
+Note: Most text editors, Seashell included, show a line number on the blank line at the end of a file. This line does not end with a newline, so it does not count for the purposes of this question. You may assume that this final line is always empty. If you are unsure what this note means, see the example test file. Line 5 of the input is not included (normally the empty string would come first in lexicographic order).
+
+Pro Tip: You may want to consult the course notes for how to read a word of arbitrary length, and modify this to read an entire line. You may also want to use a similar strategy for storing an arbitrary number of lines. It is up to you to decide what sorting algorithm to use, but it must be one of the sorting algorithms learned in class.
+
+(5 marks) Analyze the run time of your program in terms of n and m, where n is the number of lines read, and m is the length of the longest line.
