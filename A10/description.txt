@@ -1,0 +1,28 @@
+BLACK QUESTION (moderate collaboration allowed)
+Question 1: Min/Max Stack ADT
+[20 marks correctness] Write a C module mmstack.c that implements a Min/Max Stack ADT (MMStack) as described in mmstack.h.
+We have provided a simple test-mmstack.c for you.
+
+Comment: you may use any stack implementation (including the one seen in class). Note that you may need to define more than one data field, to meet the running time requirements of mms_min and mms_max.
+
+GOLD QUESTION (no collaboration allowed)
+Question 2: BSTs
+[40 marks correctness]
+In this question you will be implementing a binary search tree (bst) module. The file bst.h contains the interface for a bst, which you must implement in bst.c. Please read the documentation for each function carefully.
+
+You may use any code presented in lecture without a reference, but be careful about maintaining the integrity of the data, as the bst structure in the assignment has an extra field.
+
+The file test-bst.c provides a test harness that you can use to test your implementation. Look through the documentation in this file to see how you should use the provided main function along with .in and .expect files to test your program. Some sample tests have been provided but they are not exhaustive.
+
+Note: For this question you may NOT have any additional global mutable variables in your module's implementation.
+
+For a bonus 5 marks: Implement sorted_array_to_bst in O(n) time.
+
+GOLD QUESTION (no collaboration allowed)
+Question 3: Heap
+[40 marks correctness]
+In this question you will be implementing a priority queue module using the heap data structure. The file pq.h contains the interface for a priority queue. A detailed description of a heap (along with examples and psuedocode) can be found here.
+
+The file test-pq.c provides a test harness that you can use to test your implementation. Look through the documentation in this file to see how you should use the provided main function along with .in and .expect files to test your program. Some sample tests have been provided but they are not exhaustive.
+
+Note: For this question you may NOT have any global mutable variables in your module's implementation.
