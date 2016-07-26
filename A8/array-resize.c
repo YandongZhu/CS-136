@@ -1,13 +1,4 @@
 #include "array-resize.h"
-
-/*
-INTEGRITY STATEMENT (modify if neccessary)
-  I received help from the following sources: None. 
-  I am the sole author of this work .
-  Sign this statement by removing the line below and entering your name
-    Name: Yandong Zhu
-    login ID: y268zhu
-*/
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
